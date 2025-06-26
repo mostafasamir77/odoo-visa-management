@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="visa_management_sequence" model="ir.sequence">
+            <field name="name">visa management seq.</field>
+            <field name="code">visa_management_seq</field>
+            <field name="prefix">VP</field>
+            <field name="padding">9</field>
+        </record>
+        <record id="visa_usage_sequence" model="ir.sequence">
+            <field name="name">visa usage seq.</field>
+            <field name="code">visa_usage_seq</field>
+            <field name="prefix">visa/</field>
+            <field name="padding">3</field>
+        </record>
+
+
+    </data>
+</odoo>

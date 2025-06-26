@@ -1,0 +1,22 @@
+<odoo>
+
+    <record id="view_product_template_form_inherit" model="ir.ui.view">
+        <field name="name">view employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Employee Visa">
+                        <field name="employee_visa_ids">
+                            <list editable="bottom" >
+                                <field name="visa_name"/>
+                                <field name="visa_type"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

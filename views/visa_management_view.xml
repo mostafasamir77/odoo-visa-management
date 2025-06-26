@@ -1,0 +1,102 @@
+<odoo>
+
+    <record id="visa_management_list" model="ir.ui.view">
+        <field name="name">visa management list</field>
+        <field name="model">visa.management</field>
+        <field name="arch" type="xml">
+            <list >
+                <field name="ref"/>
+                <field name="application_date"/>
+                <field name="expire_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="visa_management_form" model="ir.ui.view">
+        <field name="name">visa management form</field>
+        <field name="model">visa.management</field>
+        <field name="arch" type="xml">
+            <form >
+               <header>
+                   <button name="action_sumit" type="object" class="btn-primary" string="Sumit"  invisible="states != 'draft'"/>
+                   <button name="action_hr_approve" type="object" class="btn-primary" string="Approve"  invisible="states != 'hr_manager'"/>
+                   <button name="action_hr_refuse" type="object" class="btn-primary" string="Refuse"  invisible="states != 'hr_manager'"/>
+                   <button name="action_finance_approve" type="object" class="btn-primary" string="Approve"  invisible="states != 'fiance_approval'"/>
+                   <button name="action_finance_refuse" type="object" class="btn-primary" string="Refuse"  invisible="states != 'fiance_approval'"/>
+                   <button name="action_use_visa" type="object" class="btn-primary" string="Use visa"  invisible="states != 'approved'"/>
+                   <button name="action_visa_return" type="object" class="btn-primary" string="Via Return"  invisible="states != 'expired'"/>
+                   <field name="states" widget="statusbar"/>
+                </header>
+                <sheet>
+                   <div name="button_box" class="oe_button_box">
+                       <button name="action_view_vendor_bills" type="object" icon="fa-money" string="Vendor Bill" invisible="has_finance_group == 0 or vendor_bill_count == 0"/>
+                   </div>
+                    <div class="oe_title">
+
+                        <h1>
+                            <field name="ref"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="application_date" readonly="states == 'hr_manager' and has_hr_group == 0"/>
+                            <field name="visa_application_no" invisible="states in ('draft','hr_manager')" required="states == 'fiance_approval'" />
+                        </group>
+                        <group>
+                            <field name="expire_date" invisible="states in ('draft','hr_manager')" required="states == 'fiance_approval'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Visa Application">
+                            <field name="visa_application_ids" readonly="states == 'hr_manager' and has_hr_group == 0">
+                                <list editable="bottom" >
+                                    <field name="nationality"/>
+                                    <field name="profession"/>
+                                    <field name="gander"/>
+                                    <field name="total"/>
+                                    <field name="total_use"  invisible ="states in ['draft', 'hr_manager','fiance_approval']"/>
+                                    <field name="remaining" invisible ="states in ['draft', 'hr_manager','fiance_approval']"/>
+                                    <field name="visa_type" options="{'no_create': True}"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Visa History" invisible="states in ('draft','hr_manager','fiance_approval')" >
+
+                        </page>
+                        <page string="Visa Usage" invisible="states in ('draft','hr_manager','fiance_approval')">
+                            <field name="visa_usage_ids">
+                                <list editable="bottom" create="0">
+                                    <field name="name"/>
+                                    <field name="nationality"/>
+                                    <field name="profession"/>
+                                    <field name="gander"/>
+                                    <field name="visa_type"/>
+                                    <field name="employee"/>
+                                    <field name="state"/>
+                                    <field name="assigning_date"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="visa_management_action" model="ir.actions.act_window">
+        <field name="name">visa management</field>
+        <field name="res_model">visa.management</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="check_expire_date_automated_action" model="ir.cron">
+        <field name="name">visa: check expire date automated action</field>
+        <field name="model_id" ref="model_visa_management"/>
+        <field name="state">code</field>
+        <field name="code">model.check_expire_date()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+
+</odoo>

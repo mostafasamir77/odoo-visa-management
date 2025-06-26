@@ -1,0 +1,28 @@
+<odoo>
+    <record id="visa_management_category" model="ir.module.category">
+        <field name="name">Visa Management Category</field>
+    </record>
+
+    <record id="visa_hr_manager_group" model="res.groups">
+        <field name="name">HR manager</field>
+        <field name="category_id" ref="visa_management.visa_management_category"/>
+    </record>
+    <record id="visa_responsible_group" model="res.groups">
+        <field name="name">responsible</field>
+        <field name="category_id" ref="visa_management.visa_management_category"/>
+    </record>
+    <record id="visa_finance_group" model="res.groups">
+        <field name="name">finance</field>
+        <field name="category_id" ref="visa_management.visa_management_category"/>
+    </record>
+
+    <!-- this is the record rule if I want it -->
+
+<!--    <record id="visa_record_rule" model="ir.rule">-->
+<!--        <field name="name">hr.manager.state.record.rule</field>-->
+<!--        <field name="model_id" ref="visa_management.model_visa_management"/>-->
+<!--&lt;!&ndash;        <field name="groups" eval="[(4, ref('base.group_system'))]"/>&ndash;&gt;-->
+<!--        <field name="domain_force">[('states', '=', 'hr_manager'), ('has_hr_group', '=', False)]</field>-->
+<!--    </record>-->
+
+</odoo>

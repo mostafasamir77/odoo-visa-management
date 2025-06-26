@@ -1,0 +1,5 @@
+<odoo>
+    <menuitem id="visa_management_base_menu" name="Visa Management"/>
+    <menuitem id="visa_management_menu" name="Visa Management" parent="visa_management_base_menu" action="visa_management_action"/>
+    <menuitem id="configration_menu" name="Configration" parent="visa_management_base_menu" />
+</odoo>

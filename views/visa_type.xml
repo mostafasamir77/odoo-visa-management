@@ -1,0 +1,50 @@
+<odoo>
+
+    <record id="visa_type_list" model="ir.ui.view">
+        <field name="name">visa type list</field>
+        <field name="model">visa.type</field>
+        <field name="arch" type="xml">
+            <list >
+                <field name="name"/>
+                <field name="vendor"/>
+                <field name="journal"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="visa_type_form" model="ir.ui.view">
+        <field name="name">visa type form</field>
+        <field name="model">visa.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="vendor"/>
+                            <field name="journal"/>
+                        </group>
+                        <group>
+                            <field name="visa_expense"/>
+                            <field name="prepaid"/>
+                            <field name="cost"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </chatter>
+            </form>
+        </field>
+    </record>
+
+    <record id="visa_type_action" model="ir.actions.act_window">
+        <field name="name">visa type</field>
+        <field name="res_model">visa.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="visa_type_menu" name="Visa Type" parent="configration_menu" action="visa_type_action"/>
+</odoo>
