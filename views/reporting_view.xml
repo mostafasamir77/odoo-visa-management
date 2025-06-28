@@ -1,16 +1,16 @@
 <odoo>
 
-<!--    <record id="visa_type_list" model="ir.ui.view">-->
-<!--        <field name="name">reporting list</field>-->
-<!--        <field name="model">visa.management.line</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <list >-->
-<!--                <field name="name"/>-->
-<!--                <field name="vendor"/>-->
+    <record id="visa_type_list" model="ir.ui.view">
+        <field name="name">reporting list</field>
+        <field name="model">visa.management.line</field>
+        <field name="arch" type="xml">
+            <list >
+                <field name="name"/>
+                <field name="nationality"/>
 <!--                <field name="journal"/>-->
-<!--            </list>-->
-<!--        </field>-->
-<!--    </record>-->
+            </list>
+        </field>
+    </record>
 
     <record id="reporting_view_pivot" model="ir.ui.view">
         <field name="name">visa.management.line.pivot</field>
@@ -50,7 +50,7 @@
     <record id="reporting_action" model="ir.actions.act_window">
         <field name="name">reporting</field>
         <field name="res_model">visa.management.line</field>
-        <field name="view_mode">pivot,form</field>
+        <field name="view_mode">pivot,form,list</field>
     </record>
 
     <menuitem id="report_menu" name="Report" parent="reporting_menu" action="reporting_action"/>

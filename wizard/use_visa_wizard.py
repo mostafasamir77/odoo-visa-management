@@ -21,6 +21,7 @@ class useVisa(models.TransientModel):
                 rec.assigned_visa.employee = rec.assigned_employee.id
                 rec.assigned_visa.assigning_date = fields.Date.today()
 
+
                 journal_entries = self.env['account.move'].create({
                     'move_type': 'entry',
                     'ref': rec.assigned_visa.name,

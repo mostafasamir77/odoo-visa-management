@@ -12,8 +12,8 @@ class visaManagement(models.Model):
     visa_usage_ids = fields.One2many('visa.management.line','visa_management_id')
 
     ref = fields.Char(default='New', readonly=1)
-    application_date = fields.Date()
-    visa_application_no = fields.Char()
+    application_date = fields.Date(tracking=1)
+    visa_application_no = fields.Char(tracking=1)
     expire_date = fields.Date()
 
     states = fields.Selection([
@@ -305,6 +305,21 @@ class visaUsage(models.Model):
     expired_visa = fields.Boolean()
 
     total_rec_related_to_create = fields.Many2one('visa.application')
+
+
+    def write(self, vals):
+        for rec in self:
+            employee_id = vals.get('employee', rec.employee.id)
+            nationality_id = vals.get('nationality', rec.nationality.id)
+
+            existing = self.search([
+                ('employee', '=', employee_id),
+                ('nationality', '=', nationality_id),
+                ('id', '!=', rec.id),
+            ], limit=1)
+            if existing:
+                raise UserError("You can't assign the same employee to more than one nationality")
+        return super().write(vals)
 
 
     @api.model

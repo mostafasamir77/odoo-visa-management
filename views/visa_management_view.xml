@@ -45,16 +45,16 @@
                     </div>
                     <group>
                         <group>
-                            <field name="application_date" readonly="states == 'hr_manager' and has_hr_group == 0"/>
-                            <field name="visa_application_no" invisible="states in ('draft','hr_manager')" required="states == 'fiance_approval'" />
+                            <field name="application_date" readonly="(states == 'hr_manager' and has_hr_group == 0) or (states in ('approved','expired','rejected') )"/>
+                            <field name="visa_application_no" invisible="states in ('draft','hr_manager')" required="states == 'fiance_approval'" readonly="states in ('approved','expired','rejected')" />
                         </group>
                         <group>
-                            <field name="expire_date" invisible="states in ('draft','hr_manager')" required="states == 'fiance_approval'"/>
+                            <field name="expire_date" invisible="states in ('draft','hr_manager')" required="states == 'fiance_approval'" readonly="states in ('approved','expired','rejected')"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Visa Application">
-                            <field name="visa_application_ids" readonly="(states == 'hr_manager' and has_hr_group == 0) or (states == 'approved')">
+                            <field name="visa_application_ids" readonly="(states == 'hr_manager' and has_hr_group == 0) or (states in ('approved','expired','rejected') )">
                                 <list editable="bottom">
                                     <field name="nationality"  options="{'no_create': True}"/>
                                     <field name="profession"  options="{'no_create': True}"/>
@@ -67,11 +67,17 @@
                             </field>
                         </page>
                         <page string="Visa History" invisible="states in ('draft','hr_manager','fiance_approval')" >
-
+                            <sheet>
+                                <chatter class="oe_chatter">
+                                    <field name="message_follower_ids"/>
+                                    <field name="activity_ids"/>
+                                    <field name="message_ids"/>
+                                </chatter>
+                            </sheet>
                         </page>
                         <page string="Visa Usage" invisible="states in ('draft','hr_manager','fiance_approval')">
                             <field name="visa_usage_ids">
-                                <list editable="bottom" create="0">
+                                <list editable="bottom" create="0" delete="0">
                                     <field name="name"/>
                                     <field name="nationality"/>
                                     <field name="profession"/>
