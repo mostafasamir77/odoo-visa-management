@@ -15,6 +15,7 @@ class employeeVisa(models.Model):
 
     visa_name = fields.Char(string="Approval No.")
     visa_type = fields.Many2one('visa.type')
+    nationality = fields.Many2one('res.country')
     state = fields.Selection([
         ('used', 'Used'),
         ('not_used', 'Not Used'),

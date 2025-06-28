@@ -198,6 +198,8 @@ class visaManagement(models.Model):
             ('visa_management_id', '=', self.id),
         ])
 
+
+
         # If only one bill, open form view
         if len(bills) == 1:
             return {
@@ -262,7 +264,8 @@ class visaApplication(models.Model):
 
 
 
-    @api.depends('gander')
+
+
     def _compute_total_use(self):
         for rec in self:
             count = 0

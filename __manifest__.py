@@ -9,6 +9,7 @@
         'data/sequence.xml',
         'views/base_view.xml',
         'views/visa_management_view.xml',
+        'views/reporting_view.xml',
         'views/visa_type.xml',
         'views/employee_inhert_view.xml',
         'wizard/use_visa_wizard_view.xml',

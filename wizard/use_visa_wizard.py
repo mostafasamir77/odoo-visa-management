@@ -46,6 +46,7 @@ class useVisa(models.TransientModel):
                     'hr_employee_id': rec.assigned_visa.employee.id,
                     'visa_name': rec.assigned_visa.visa_management_id.ref,
                     'visa_type': rec.assigned_visa.visa_type.id,
+                    'nationality': rec.assigned_visa.nationality.id,
                     'state': rec.assigned_visa.state,
                 })
 

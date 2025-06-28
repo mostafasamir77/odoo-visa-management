@@ -7,10 +7,11 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Employee Visa">
-                        <field name="employee_visa_ids">
+                        <field name="employee_visa_ids" readonly="1">
                             <list editable="bottom" >
                                 <field name="visa_name"/>
                                 <field name="visa_type"/>
+                                <field name="nationality"/>
                                 <field name="state"/>
                             </list>
                         </field>
