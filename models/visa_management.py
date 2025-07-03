@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class visaManagement(models.Model):
     _name = 'visa.management'
+    _rec_name = 'ref'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     visa_application_ids = fields.One2many('visa.application', 'visa_management_id')
     visa_usage_ids = fields.One2many('visa.management.line','visa_management_id')
@@ -312,13 +313,16 @@ class visaUsage(models.Model):
             employee_id = vals.get('employee', rec.employee.id)
             nationality_id = vals.get('nationality', rec.nationality.id)
 
-            existing = self.search([
-                ('employee', '=', employee_id),
-                ('nationality', '=', nationality_id),
-                ('id', '!=', rec.id),
-            ], limit=1)
-            if existing:
-                raise UserError("You can't assign the same employee to more than one nationality")
+            if employee_id and nationality_id:
+                existing_visa = self.env['visa.management.line'].search([
+                    ('employee', '=', employee_id),
+                    ('nationality', '=', nationality_id),
+                    ('id', '!=', rec.id),
+                    ('state', '=', 'used'),
+                    ('visa_management_id', '=', rec.visa_management_id.id),
+                ], limit=1)
+                if existing_visa:
+                    raise UserError("You can't create visa have the same employee to the same nationalty")
         return super().write(vals)
 
 

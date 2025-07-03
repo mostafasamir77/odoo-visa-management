@@ -12,7 +12,7 @@ class useVisa(models.TransientModel):
 
 
     assigned_employee = fields.Many2one('hr.employee',string="Employee")
-    assigned_visa = fields.Many2one('visa.management.line',domain="[('visa_management_id', '=', visa_management_wizard_id)]")
+    assigned_visa = fields.Many2one('visa.management.line',domain="[('visa_management_id', '=', visa_management_wizard_id), ('employee', '=', False)]")
 
 
     def action_confirm(self):

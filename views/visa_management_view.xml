@@ -60,8 +60,8 @@
                                     <field name="profession"  options="{'no_create': True}"/>
                                     <field name="gander"/>
                                     <field name="total"/>
-                                    <field name="total_use"  invisible ="states in ['draft', 'hr_manager','fiance_approval']"/>
-                                    <field name="remaining" invisible ="states in ['draft', 'hr_manager','fiance_approval']"/>
+                                    <field name="total_use"  column_invisible ="parent.states in ['draft', 'hr_manager','fiance_approval']"/>
+                                    <field name="remaining" column_invisible ="parent.states in ['draft', 'hr_manager','fiance_approval']"/>
                                     <field name="visa_type" options="{'no_create': True}"/>
                                 </list>
                             </field>
@@ -110,5 +110,8 @@
         <field name="interval_type">days</field>
         <field name="active">True</field>
     </record>
+
+
+    <menuitem id="visa_menu" name="Management" parent="visa_management_menu" action="visa_management_action"/>
 
 </odoo>

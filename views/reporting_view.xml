@@ -4,7 +4,7 @@
         <field name="name">reporting list</field>
         <field name="model">visa.management.line</field>
         <field name="arch" type="xml">
-            <list >
+            <list>
                 <field name="name"/>
                 <field name="nationality"/>
 <!--                <field name="journal"/>-->
@@ -22,6 +22,50 @@
 <!--                <field name="id" type="measure"/>-->
             </pivot>
         </field>
+    </record>
+
+    <record id="visa_management_line_kanban" model="ir.ui.view">
+    <field name="name">visa.management.line.kanban</field>
+    <field name="model">visa.management.line</field>
+    <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="name"/>
+                <field name="nationality"/>
+                <field name="state"/>
+                <field name="employee"/>
+                <field name="visa_type"/>
+                <field name="assigning_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-6">
+                                    <field class="fw-bold" name="name"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <i class="fa fa-clock-o fw-bold" aria-label="Date" role="img" title="Date"/> <field class="fw-bold" name="assigning_date"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul>
+                                        <li>Employee: <field name="employee"/></li>
+                                        <li>Visa Type: <field name="visa_type"/></li>
+                                        <li>Nationality: <field name="nationality"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-end">
+                                    <field class="float-end" name="state" widget="label_selection" options="{'classes': {'used': 'success', 'not_used': 'default', 'expired': 'danger'}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+
+    </field>
     </record>
 
     <record id="reporting_view_form" model="ir.ui.view">
@@ -50,7 +94,7 @@
     <record id="reporting_action" model="ir.actions.act_window">
         <field name="name">reporting</field>
         <field name="res_model">visa.management.line</field>
-        <field name="view_mode">pivot,form,list</field>
+        <field name="view_mode">pivot,form,list,kanban</field>
     </record>
 
     <menuitem id="report_menu" name="Report" parent="reporting_menu" action="reporting_action"/>
